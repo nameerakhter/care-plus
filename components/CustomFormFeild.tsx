@@ -51,7 +51,6 @@ const RenderField=({field, props}:{field: any, props: CustomFormFeildProps})=>{
             )
         case FormFieldType.PHONE_INPUT:
             return(
-                <div className="flex rounded-md border-dark-500 bg-dark-400">
                     <FormControl>
                     <PhoneInput
                     defaultCountry="IN"
@@ -63,7 +62,6 @@ const RenderField=({field, props}:{field: any, props: CustomFormFeildProps})=>{
                     className="input-phone"
                     />
                     </FormControl>
-                </div>
             )
         default:
             break;
