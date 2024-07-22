@@ -3,11 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,14 +21,12 @@ import { createUser } from "@/lib/actions/patient.actions";
 export enum FormFieldType {
   INPUT = "input",
   TEXTAREA = "textarea",
-  PHONE_INPUT='phoneInput',
+  PHONE_INPUT = "phoneInput",
   CHECKBOX = "checkbox",
   DATE_PICKER = "datepicker",
-  SELECT= "select",
+  SELECT = "select",
   SKELETON = "skeleton",
 }
-
-
 
 const PatientForm = () => {
   const router = useRouter();
@@ -44,38 +40,45 @@ const PatientForm = () => {
     },
   });
 
-  async function onSubmit({username, email, phone}: z.infer<typeof UserFormValidation>) {
+  const onSubmit = async (values: z.infer<typeof UserFormValidation>) => {
+    console.log("Form submitted with values:", values); // Log form values
     setIsLoading(true);
     try {
-      const userData ={
-        username,
-        email,
-        phone,
+      const userData = {
+        username: values.username,
+        email: values.email,
+        phone: values.phone,
+      };
+
+      console.log("Submitting user data:", userData); // Log user data
+
+      const newUser = await createUser(userData);
+      console.log("User created:", newUser); // Log created user
+      if (newUser) {
+        console.log("Redirecting to user registration page..."); // Log redirection
+        router.push(`/patients/${newUser.$id}/register`);
       }
 
-     const user= await createUser(userData)
-     console.log(user);
-    //  if(user){
-    //     router.push(`/patients/${user.id}/register`)
-    //  }
-      
     } catch (error) {
-      console.log(error)
+      console.log("Error creating user:", error); // Log error
     }
-  }
+    setIsLoading(false);
+    console.log("Finished form submission"); // Log end of submission
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
         <section className="mb-12 space-y-4">
-          <h1 className="header">Hi there... </h1>{" "}
+          <h1 className="header">Hi there... </h1>
         </section>
         <p className="text-dark-700">Schedule your first appointment</p>
 
         <CustomFormFeild
           control={form.control}
           fieldType={FormFieldType.INPUT}
-          name='name'
-          label='Full Name'
+          name='username'
+          label='Name'
           placeholder='Nameer'
           iconSrc='/assets/icons/user.svg'
           iconAlt='user icon'
@@ -83,16 +86,16 @@ const PatientForm = () => {
         <CustomFormFeild
           control={form.control}
           fieldType={FormFieldType.INPUT}
-          name='Email'
+          name='email'
           label='Email'
-          placeholder='muhammadnameerakhter@gmail.com'
+          placeholder='example@gmail.com'
           iconSrc='/assets/icons/email.svg'
           iconAlt='email icon'
         />
         <CustomFormFeild
           control={form.control}
           fieldType={FormFieldType.PHONE_INPUT}
-          name='Phone Number'
+          name='phone'
           label='Phone Number'
           placeholder='(+91) 1234567890'
         />
