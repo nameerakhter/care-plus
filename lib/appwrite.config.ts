@@ -14,10 +14,10 @@ export const {
   APPOINTMENT_COLLECTION_ID,
   NEXT_PUBLIC_BUCKET_ID: BUCKET_ID,
 } = process.env;
-console.log(`Appwrite Configuration:`);
-console.log(`ENDPOINT: ${ENDPOINT}`);
-console.log(`PROJECT_ID: ${PROJECT_ID}`);
-console.log(`API_KEY: ${API_KEY}`);
+// console.log(`Appwrite Configuration:`);
+// console.log(`ENDPOINT: ${ENDPOINT}`);
+// console.log(`PROJECT_ID: ${PROJECT_ID}`);
+// console.log(`API_KEY: ${API_KEY}`);
 
 
 const client = new sdk.Client();
