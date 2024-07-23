@@ -1,5 +1,6 @@
 import { ID, Query } from "node-appwrite";
 import { users } from "../appwrite.config";
+import { parseStringify } from "../utils";
 
 export const createUser = async (userData: CreateUserParams) => {
     console.log("createUser called with:", userData); // Log the input data
@@ -30,3 +31,13 @@ export const createUser = async (userData: CreateUserParams) => {
       return undefined; // Return undefined if an error occurs
     }
   };
+
+
+export const getUser = async (userId: string) => {
+  try {
+    const user = await users.get(userId);
+    return parseStringify(user);
+  } catch (error) {
+    console.log(error)
+  }
+}
