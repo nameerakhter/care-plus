@@ -96,7 +96,7 @@ const RegisterForm = ({ user }: { user: User }) => {
             fieldType={FormFieldType.PHONE_INPUT}
             name="phone"
             label="Phone Number"
-            placeholder="(+91) 1234567890"
+            placeholder="1234567890"
           />
         </div>
         {/* Birthdate and Gender  */}
@@ -140,7 +140,7 @@ const RegisterForm = ({ user }: { user: User }) => {
             control={form.control}
             name="address"
             label="Address"
-            placeholder="Enter your address"
+            placeholder="14th Street, Civil Lines"
           />
 
           <CustomFormFeild
@@ -177,6 +177,7 @@ const RegisterForm = ({ user }: { user: User }) => {
           </div>
         </section>
 
+        {/* Select your primary care physician */}
         <CustomFormFeild
           control={form.control}
           fieldType={FormFieldType.SELECT}

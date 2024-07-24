@@ -19,7 +19,8 @@ import Image from "next/image";
 import { E164Number } from "libphonenumber-js";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { Select, SelectTrigger, SelectValue } from "./ui/select";
+import { SelectContent } from "./ui/select";
 interface CustomFormFeildProps {
   control: Control<any>;
   fieldType: FormFieldType;
@@ -48,7 +49,8 @@ const RenderField = ({
     iconSrc,
     fieldType,
     showTimeSelects,
-    dateFormat,renderSkeleton
+    dateFormat,
+    renderSkeleton,
   } = props;
   switch (fieldType) {
     case FormFieldType.INPUT:
@@ -101,17 +103,30 @@ const RenderField = ({
               selected={field.value}
               onChange={(date) => field.onChange(date)}
               dateFormat={dateFormat ?? "MM/dd/yyyy"}
-              showTimeSelect={showTimeSelects ?? false }
+              showTimeSelect={showTimeSelects ?? false}
               timeInputLabel="Time:"
               wrapperClassName="date-picker"
             />
           </FormControl>
         </div>
       );
-      case FormFieldType.SKELETON:
-        return (
-          renderSkeleton ? renderSkeleton(field):null
-        )
+    case FormFieldType.SKELETON:
+      return renderSkeleton ? renderSkeleton(field) : null;
+    case FormFieldType.SELECT:
+      return (
+        <FormControl>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger className="shad-select-trigger">
+                <SelectValue placeholder={props.placeholder} />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent className="shad-select-content">
+              {props.children}
+            </SelectContent>
+          </Select>
+        </FormControl>
+      );
     default:
       break;
   }
