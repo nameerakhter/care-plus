@@ -10,10 +10,10 @@ import { useState } from "react";
 import { UserFormValidation } from "@/lib/Validation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
-import Register from "@/app/patients/[userid]/register/page";
+import userId from "@/app/patients/[userid]/register/page";
 import { FormFieldType } from "./PatientForm";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Doctors, GenderOptions } from "@/constants";
+import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
 import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
@@ -283,6 +283,43 @@ const RegisterForm = ({ user }: { user: User }) => {
             ></CustomFormFeild>
           </div>
         </div>
+
+        {/* Identification and Verification */}
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Identification and Verification </h2>
+          </div>
+        </section>
+
+          {/* Identification Type */}
+        <CustomFormFeild
+          control={form.control}
+          fieldType={FormFieldType.SELECT}
+          name="identificationType"
+          label="Identification Type"
+          placeholder="Select the ID type"
+          
+        >
+          {IdentificationTypes.map((id) => (
+            <SelectItem key={id} value={id}>
+              <div className="flex cursor-pointer items-center gap-2">
+                
+                <p>{id}</p>
+              </div>
+            </SelectItem>
+          ))}
+        </CustomFormFeild>
+        {/* Identification Number  */}
+
+        <CustomFormFeild
+          control={form.control}
+          fieldType={FormFieldType.INPUT}
+          name="
+identificationNumber"
+          label="Identification Number"
+          placeholder="Ex: 1234567890"
+          
+        />
 
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
