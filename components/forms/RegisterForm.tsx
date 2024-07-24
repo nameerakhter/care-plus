@@ -17,6 +17,7 @@ import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
 import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
+import FileUploader from "../FileUploader";
 
 const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
@@ -106,40 +107,39 @@ const RegisterForm = ({ user }: { user: User }) => {
         {/* Birthdate and Gender  */}
         <div className="flex flex-col  gap-6 xl:flex-row">
           <div className="xl:w-1/3">
-          <CustomFormFeild
-            fieldType={FormFieldType.DATE_PICKER}
-            control={form.control}
-            name="birthDate"
-            label="Date of birth"
-          /></div>
+            <CustomFormFeild
+              fieldType={FormFieldType.DATE_PICKER}
+              control={form.control}
+              name="birthDate"
+              label="Date of birth"
+            />
+          </div>
           <div className="xl:w-2/3">
-          <CustomFormFeild
-            fieldType={FormFieldType.SKELETON}
-            control={form.control}
-            name="gender"
-            label="Gender"
-            renderSkeleton={(field) => (
-              <FormControl>
-                <RadioGroup
-                  className="flex h-11 gap-2 xl:justify-between"
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  {GenderOptions.map((option, i) => (
-                    <div key={option + i} className="radio-group">
-                      <RadioGroupItem value={option} id={option} />
-                      <Label htmlFor={option} className="cursor-pointer">
-                        {option}
-                      </Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </FormControl>
-            )}
-          /></div>
-          
-
-          
+            <CustomFormFeild
+              fieldType={FormFieldType.SKELETON}
+              control={form.control}
+              name="gender"
+              label="Gender"
+              renderSkeleton={(field) => (
+                <FormControl>
+                  <RadioGroup
+                    className="flex h-11 gap-2 xl:justify-between"
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    {GenderOptions.map((option, i) => (
+                      <div key={option + i} className="radio-group">
+                        <RadioGroupItem value={option} id={option} />
+                        <Label htmlFor={option} className="cursor-pointer">
+                          {option}
+                        </Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                </FormControl>
+              )}
+            />
+          </div>
         </div>
         {/* Address and Occupation  */}
         <div className="flex flex-col justify-between gap-6 xl:flex-row w-full">
@@ -291,19 +291,17 @@ const RegisterForm = ({ user }: { user: User }) => {
           </div>
         </section>
 
-          {/* Identification Type */}
+        {/* Identification Type */}
         <CustomFormFeild
           control={form.control}
           fieldType={FormFieldType.SELECT}
           name="identificationType"
           label="Identification Type"
           placeholder="Select the ID type"
-          
         >
           {IdentificationTypes.map((id) => (
             <SelectItem key={id} value={id}>
               <div className="flex cursor-pointer items-center gap-2">
-                
                 <p>{id}</p>
               </div>
             </SelectItem>
@@ -314,12 +312,22 @@ const RegisterForm = ({ user }: { user: User }) => {
         <CustomFormFeild
           control={form.control}
           fieldType={FormFieldType.INPUT}
-          name="
-identificationNumber"
+          name="identificationNumber"
           label="Identification Number"
           placeholder="Ex: 1234567890"
-          
         />
+
+        {/* Upload scanned copy */}
+        <CustomFormFeild
+            fieldType={FormFieldType.SKELETON}
+            control={form.control}
+            name="identificationDocument"
+            label="Scanned copy of Identification Document"
+            renderSkeleton={(field) => (
+             <FormControl>
+              <FileUploader files={field.value} onChange={field.onChange}/>
+             </FormControl>)}
+                />
 
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
