@@ -5,11 +5,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
   Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import CustomFormFeild from "../CustomFormFeild";
 import SubmitButton from "../SubmitButton";
@@ -22,7 +17,6 @@ import { Doctors } from "@/constants";
 
 import Image from "next/image";
 import { SelectItem } from "../ui/select";
-import { stat } from "fs";
 import { createAppointment } from "@/lib/actions/appointment.actions";
 
 
@@ -51,16 +45,14 @@ const AppointmentForm = ({userId, patientId, type}: {userId: string, patientId: 
 
     let status;
     switch (type) {
-      case 'schedule':
+      case "schedule":
         status = "scheduled";
-      case 'create':
-        status = "create";
-        
         break;
-    
-      default: 
-      status = "pending";
+      case "cancel":
+        status = "cancelled";
         break;
+      default:
+        status = "pending";
     }
     try {
       if(type === "create" && patientId) {
@@ -73,10 +65,11 @@ const AppointmentForm = ({userId, patientId, type}: {userId: string, patientId: 
           note: values.note,
           status: status as Status,
         }
-        const appointment = await createAppointment(appointmentData)
-        if (appointment) {
+        const newAppointment = await createAppointment(appointmentData)
+        console.log(newAppointment);
+        if (newAppointment) {
           form.reset();
-          router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.id}`);
+          router.push(`/patients/${userId}/new-appointment/success?appointmentId=${newAppointment.$id}`);
         }
       }
 
@@ -91,17 +84,14 @@ const AppointmentForm = ({userId, patientId, type}: {userId: string, patientId: 
 
   let buttonLabel;
   switch (type) {
-    case 'cancel':
-      buttonLabel = 'Cancel Appointment';
-    case 'create':
-      buttonLabel = 'Create Appointment';
-    case 'schedule':
-      buttonLabel = 'Schedule Appointment';
-      
+    case "cancel":
+      buttonLabel = "Cancel Appointment";
       break;
-  
+    case "schedule":
+      buttonLabel = "Schedule Appointment";
+      break;
     default:
-      break;
+      buttonLabel = "Submit Apppointment";
   }
   return (
     <Form {...form}>
@@ -143,7 +133,7 @@ const AppointmentForm = ({userId, patientId, type}: {userId: string, patientId: 
       dateFormat="MM/dd/yyyy -h:mm aa"></CustomFormFeild>
 
       <div className="flex flex-col gap-6 xl:flex-row ">
-        <div className="w-1/2">
+        <div className="xl:w-1/2">
         <CustomFormFeild
           control={form.control}
           fieldType={FormFieldType.TEXTAREA}
@@ -152,7 +142,7 @@ const AppointmentForm = ({userId, patientId, type}: {userId: string, patientId: 
           placeholder="Ex: Annual checkup, follow-up, etc."/>
 
         </div>
-        <div className="w-1/2">
+        <div className="xl:w-1/2">
         <CustomFormFeild
           control={form.control}
           fieldType={FormFieldType.TEXTAREA}
