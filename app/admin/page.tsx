@@ -1,9 +1,11 @@
 import StatCard from '@/components/StatCard'
+import { getRecentAppointmentsList } from '@/lib/actions/appointment.actions'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-const AdminPage = () => {
+const AdminPage = async () => {
+    const appointments = await getRecentAppointmentsList()
   return (
     <div className='mx-auto flex max-w-7xl flex-col space-y-14'>
         <header className='admin-header'>
@@ -27,9 +29,9 @@ const AdminPage = () => {
                 <p className='text-dark-700'>Start the day by managing new appointments</p>
             </section>
             <section className='admin-stat'>
-                <StatCard type="appointments" count={5} label="Schedule Appointmetns" icon='/assets/icons/appointments.svg' />
-                <StatCard type="pending" count={10} label="Pending Appointmetns" icon='/assets/icons/pending.svg' />
-                <StatCard type="cancelled" count={9} label="Cancelled Appointmetns" icon='/assets/icons/cancelled.svg' />
+                <StatCard type="appointments" count={appointments.scheduledCount} label="Schedule Appointmetns" icon='/assets/icons/appointments.svg' />
+                <StatCard type="pending" count={appointments.pendingCount} label="Pending Appointmetns" icon='/assets/icons/pending.svg' />
+                <StatCard type="cancelled" count={appointments.cancelledCount} label="Cancelled Appointmetns" icon='/assets/icons/cancelled.svg' />
             </section>
         </div>
     </div>
