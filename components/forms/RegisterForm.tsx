@@ -391,7 +391,7 @@ return (
         
       />
 
-      <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
+      <SubmitButton isLoading={isLoading}>Submit and Continue</SubmitButton>
     </form>
   </Form>
 );

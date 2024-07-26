@@ -18,7 +18,7 @@ export const columns: ColumnDef<Appointment>[] = [
     },
   },
   {
-    accessorKey: "username",
+    accessorKey: "patient",
     header: "Patient",
     cell: ({ row }) => {
       const appointment = row.original;
