@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/button";
 import { Doctors } from "@/constants";
 import { getAppointments } from "@/lib/actions/appointment.actions";
+import { formatDateTime } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -36,8 +38,22 @@ const Success = async ({params:{userId}, searchParams}: SearchParamProps) => {
             <div className="flex items-center gap-3">
               <Image
               src={doctor?.image!} alt={doctor?.name!} width={100} height={100} className="size-6"></Image>
+              <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
+            </div>
+            <div className="flex gap-2">
+              <Image src='/assets/icons/calendar.svg'
+              width={24}
+              height={24}
+              alt="calendar">  
+              </Image>
+              <p>{formatDateTime(appointment.schedule).dateTime}</p>
             </div>
           </section>
+          <Button variant='outline' className="shad-primary-btn" asChild>
+            <Link href={`/patients/${userId}/new-appointment`}>
+            New Appointment</Link>
+          </Button>
+          <p className="copyright py-12">©2024 care-plus</p>
       </div>
     </div>
   );
