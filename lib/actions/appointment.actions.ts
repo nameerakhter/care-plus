@@ -114,7 +114,7 @@ export const updateAppointment = async ({
     Hi greetings from care-plus.
     ${
       type === "schedule"
-        ? `Your appointment has been scheduled ${formatDateTime(appointment.schedule!)}`
+        ? `Your appointment has been scheduled ${formatDateTime(appointment.schedule!).dateTime} with Dr. ${appointment.primaryPhysician}`
         : `We are sorry to inform you that your appointment has been cancelled. Reason: ${appointment.cancellationReason}`
     }
     `;
