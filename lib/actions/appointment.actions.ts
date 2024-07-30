@@ -1,11 +1,12 @@
-'use server'
+"use server";
 import { ID, Query } from "node-appwrite";
 import {
   APPOINTMENT_COLLECTION_ID,
   DATABASE_ID,
   databases,
+  messaging,
 } from "../appwrite.config";
-import { parseStringify } from "../utils";
+import { formatDateTime, parseStringify } from "../utils";
 import { Appointment } from "@/types/appwrite.types";
 import { revalidatePath } from "next/cache";
 
@@ -33,23 +34,25 @@ export const getAppointments = async (appointmentId: string) => {
       appointmentId
     );
     return parseStringify(appointments);
-    
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const getRecentAppointmentsList = async () => {
   try {
     const appointments = await databases.listDocuments(
       DATABASE_ID!,
-      APPOINTMENT_COLLECTION_ID!,
+      APPOINTMENT_COLLECTION_ID!
     );
 
-    console.log("Fetched Document IDs without filters:", appointments.documents.map(doc => doc.$id));
+    console.log(
+      "Fetched Document IDs without filters:",
+      appointments.documents.map((doc) => doc.$id)
+    );
 
     // Print detailed information about each document
-    appointments.documents.forEach(doc => {
+    appointments.documents.forEach((doc) => {
       console.log("Document Details:", doc);
     });
 
@@ -88,24 +91,53 @@ export const getRecentAppointmentsList = async () => {
   }
 };
 
-
-export const updateAppointment = async ({appointmentId, userId, appointment, type}: UpdateAppointmentParams) => {
+export const updateAppointment = async ({
+  appointmentId,
+  userId,
+  appointment,
+  type,
+}: UpdateAppointmentParams) => {
   try {
     const updatedAppointment = await databases.updateDocument(
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
       appointmentId,
       appointment
-    )
+    );
 
     if (!updatedAppointment) {
-      throw new Error('Failed to update appointment')
+      throw new Error("Failed to update appointment");
     }
     // SMS notification
 
-    revalidatePath('/admin')
-    return parseStringify(updatedAppointment)
+    const smsMessage = `
+    Hi greetings from care-plus.
+    ${
+      type === "schedule"
+        ? `Your appointment has been scheduled ${formatDateTime(appointment.schedule!)}`
+        : `We are sorry to inform you that your appointment has been cancelled. Reason: ${appointment.cancellationReason}`
+    }
+    `;
+
+    await sendSMSNotification(userId, smsMessage);
+
+    revalidatePath("/admin");
+    return parseStringify(updatedAppointment);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
+
+export const sendSMSNotification = async (userId: string, content: string) => {
+  try {
+    const message = await messaging.createSms(
+      ID.unique(),
+      content,
+      [],
+      [userId]
+    );
+    return parseStringify(message);
+  } catch (error) {
+    console.log(error);
+  }
+};
