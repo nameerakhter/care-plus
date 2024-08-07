@@ -10,5 +10,5 @@ https://github.com/user-attachments/assets/39fe2305-bb52-4d2f-aa1d-60cb62f0caeb
 - **Appwrite**
 - **Twilio**
 - **Shadcn**
-- **TypeScript**
+- **TypeScript.**
 - **Tailwind css**
