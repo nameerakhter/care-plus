@@ -2,13 +2,10 @@ import PatientForm from '@/components/forms/PatientForm'
 import PasskeyModal from '@/components/PasskeyModal'
 import Image from 'next/image'
 import Link from 'next/link'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export default function Home({ searchParams }: SearchParamProps) {
   const isAdmin = searchParams?.admin === 'true'
   return (
-    <>
-      <SpeedInsights />
       <div className="flex h-screen max-h-screen">
         {isAdmin && <PasskeyModal />}
 
@@ -43,6 +40,5 @@ export default function Home({ searchParams }: SearchParamProps) {
           className="side-img max-w-[50%] rounded-[1vw]"
         />
       </div>
-    </>
   )
 }

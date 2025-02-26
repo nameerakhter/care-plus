@@ -22,15 +22,26 @@ export const createUser = async (userData: CreateUserParams) => {
       undefined,
       userData.username,
     )
+
     return newUser
   } catch (error: any) {
-    if (error && error?.code === 409) {
-      const documents = await users.list([
-        Query.equal('email', [userData.email]),
-      ])
-      return documents?.users[0]
+    if (error.code === 409) {
+      try {
+        const existingUsers = await users.list([
+          Query.equal('email', [userData.email]),
+        ])
+
+        if (existingUsers.total > 0) {
+          return existingUsers.users[0]
+        } else {
+          throw new Error('User already exists but could not be retrieved.')
+        }
+      } catch (fetchError) {
+        throw new Error('Failed to fetch existing user.')
+      }
     }
-    return undefined
+
+    throw new Error(`createUser error: ${error.message}`)
   }
 }
 

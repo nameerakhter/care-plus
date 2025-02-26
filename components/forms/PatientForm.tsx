@@ -49,11 +49,11 @@ const PatientForm = () => {
         phone: values.phone,
       }
       const newUser = await createUser(userData)
-      if (newUser) {
+      if (newUser && !('error' in newUser)) {
         router.push(`/patients/${newUser.$id}/register`)
       }
-    } catch {
-      throw new Error('Error creating user:')
+    } catch (error) {
+      throw new Error('Error creating user')
     }
     setIsLoading(false)
   }
