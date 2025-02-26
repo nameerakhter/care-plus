@@ -99,7 +99,7 @@ const RenderField = ({
             width={24}
             alt="calendar"
             className="ml-2"
-            />
+          />
           <FormControl>
             <DatePicker
               selected={field.value}
@@ -173,7 +173,7 @@ const CustomFormFeild = (props: CustomFormFeildProps) => {
               <FormLabel>{label}</FormLabel>
             )}
             <RenderField field={field} props={props} />
-            <FormMessage className="shad-error"/>
+            <FormMessage className="shad-error" />
           </FormItem>
         )}
       />

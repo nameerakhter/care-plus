@@ -21,8 +21,8 @@ export const createAppointment = async (
       appointment,
     )
     return parseStringify(newAppointment)
-  } catch{
-    throw new Error("Failed to create Appointment")
+  } catch {
+    throw new Error('Failed to create Appointment')
   }
 }
 
@@ -35,7 +35,7 @@ export const getAppointments = async (appointmentId: string) => {
     )
     return parseStringify(appointments)
   } catch {
-    throw new Error("Failed to fetch Appointment")
+    throw new Error('Failed to fetch Appointment')
   }
 }
 
@@ -77,7 +77,7 @@ export const getRecentAppointmentsList = async () => {
     }
     return parseStringify(data)
   } catch (error) {
-    throw new Error("Error fetching appointments")
+    throw new Error('Error fetching appointments')
   }
 }
 
@@ -113,7 +113,7 @@ export const updateAppointment = async ({
     revalidatePath('/admin')
     return parseStringify(updatedAppointment)
   } catch (error) {
-    throw new Error("Error while generating Mesage")
+    throw new Error('Error while generating Mesage')
   }
 }
 
@@ -127,6 +127,6 @@ export const sendSMSNotification = async (userId: string, content: string) => {
     )
     return parseStringify(message)
   } catch (error) {
-    throw new Error("Error while sending SMS Message")
+    throw new Error('Error while sending SMS Message')
   }
 }

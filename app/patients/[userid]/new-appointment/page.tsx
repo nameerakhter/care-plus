@@ -22,7 +22,7 @@ export default async function NewAppointment({
               width={1000}
               alt="logo"
               className="mb-12 h-10 w-fit"
-              />
+            />
             <p className="text-2xl">CarePlus+</p>
           </div>
           <AppointmentForm
@@ -39,7 +39,7 @@ export default async function NewAppointment({
         width={1000}
         alt="onboarding"
         className="side-img max-w-[390px] rounded-[1vw]"
-        />
+      />
     </div>
   )
 }

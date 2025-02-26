@@ -15,23 +15,22 @@ import { InputFile } from 'node-appwrite/file'
 
 export const createUser = async (userData: CreateUserParams) => {
   try {
-
     const newUser = await users.create(
       ID.unique(),
       userData.email,
       userData.phone,
-      undefined, 
+      undefined,
       userData.username,
     )
-    return newUser 
+    return newUser
   } catch (error: any) {
     if (error && error?.code === 409) {
       const documents = await users.list([
         Query.equal('email', [userData.email]),
       ])
-      return documents?.users[0] 
+      return documents?.users[0]
     }
-    return undefined 
+    return undefined
   }
 }
 
@@ -39,8 +38,8 @@ export const getUser = async (userId: string) => {
   try {
     const user = await users.get(userId)
     return parseStringify(user)
-  } catch{
-      throw new Error(`Failed to get user`)
+  } catch {
+    throw new Error(`Failed to get user`)
   }
 }
 
@@ -74,8 +73,8 @@ export const registerPatient = async ({
     )
 
     return parseStringify(newPatient)
-  } catch{
-    throw new Error("Failed to register patient")
+  } catch {
+    throw new Error('Failed to register patient')
   }
 }
 
@@ -88,6 +87,6 @@ export const getPatient = async (userId: string) => {
     )
     return parseStringify(patients.documents[0])
   } catch {
-    throw new Error("Failed to get patient")
+    throw new Error('Failed to get patient')
   }
 }

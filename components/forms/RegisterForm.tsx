@@ -252,7 +252,6 @@ const RegisterForm = ({ user }: { user: User }) => {
           ))}
         </CustomFormFeild>
 
-
         <div className="flex flex-col gap-6 xl:flex-row">
           <div className="xl:w-1/2">
             <CustomFormFeild
@@ -292,7 +291,7 @@ const RegisterForm = ({ user }: { user: User }) => {
               name="currentMedication"
               label="Current Medication (if any):"
               placeholder="Ex: Ibuprofen, Paracetamol, etc."
-              />
+            />
           </div>
         </div>
 
@@ -304,7 +303,7 @@ const RegisterForm = ({ user }: { user: User }) => {
               name="familyMedicalHistory"
               label="Family Medical History (if relevant):"
               placeholder="Ex: Mother had breast cancer."
-              />
+            />
           </div>
 
           <div className="xl:w-1/2">
@@ -314,7 +313,7 @@ const RegisterForm = ({ user }: { user: User }) => {
               name="pastMedicalHistory"
               label="Past Medical History (if any):"
               placeholder="Ex: Asthma diagnosis in childhood"
-              />
+            />
           </div>
         </div>
 

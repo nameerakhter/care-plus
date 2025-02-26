@@ -42,7 +42,7 @@ const Success = async ({
             alt="success"
             height={300}
             width={280}
-            />
+          />
           <h2 className="header mb-6 max-w-[600px] text-center">
             Your{' '}
             <span className="text-green-500">
@@ -60,7 +60,7 @@ const Success = async ({
               width={100}
               height={100}
               className="size-6"
-              />
+            />
             <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
           </div>
           <div className="flex gap-2">
@@ -69,7 +69,7 @@ const Success = async ({
               width={24}
               height={24}
               alt="calendar"
-              />
+            />
             <p>{formatDateTime(appointment.schedule).dateTime}</p>
           </div>
         </section>

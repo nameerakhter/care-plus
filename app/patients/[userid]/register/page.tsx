@@ -20,7 +20,7 @@ const Register = async ({ params: { userId } }: SearchParamProps) => {
               width={1000}
               alt="logo"
               className="mb-12 h-10 w-fit"
-              />
+            />
             <p className="text-2xl">CarePlus+</p>
           </div>
           <RegisterForm user={user} />
@@ -33,7 +33,7 @@ const Register = async ({ params: { userId } }: SearchParamProps) => {
         width={1000}
         alt="onboarding"
         className="side-img max-w-[390px] rounded-[1vw]"
-        />
+      />
     </div>
   )
 }

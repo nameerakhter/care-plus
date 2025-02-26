@@ -145,7 +145,7 @@ const AppointmentForm = ({
                     width={32}
                     alt={doctor.name}
                     className="border-500 rounded-full border"
-                    />
+                  />
                   <p>{doctor.name}</p>
                 </div>
               </SelectItem>
@@ -159,7 +159,7 @@ const AppointmentForm = ({
           label="Expected appointment date"
           showTimeSelects
           dateFormat="MM/dd/yyyy -h:mm aa"
-          />
+        />
 
         <div className="flex flex-col gap-6 xl:flex-row">
           <div className="xl:w-1/2">
