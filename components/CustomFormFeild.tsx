@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import React from "react";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import React from 'react'
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 import {
   Form,
   FormControl,
@@ -11,39 +11,39 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Control } from "react-hook-form";
-import { FormFieldType } from "./forms/PatientForm";
-import Image from "next/image";
-import { E164Number } from "libphonenumber-js";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { Select, SelectTrigger, SelectValue } from "./ui/select";
-import { SelectContent } from "./ui/select";
-import { Textarea } from "./ui/textarea";
-import { Checkbox } from "./ui/checkbox";
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Control } from 'react-hook-form'
+import { FormFieldType } from './forms/PatientForm'
+import Image from 'next/image'
+import { E164Number } from 'libphonenumber-js'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { Select, SelectTrigger, SelectValue } from './ui/select'
+import { SelectContent } from './ui/select'
+import { Textarea } from './ui/textarea'
+import { Checkbox } from './ui/checkbox'
 interface CustomFormFeildProps {
-  control: Control<any>;
-  fieldType: FormFieldType;
-  name: string;
-  label?: string;
-  placeholder?: string;
-  iconSrc?: string;
-  iconAlt?: string;
-  disabled?: boolean;
-  dateFormat?: string;
-  showTimeSelects?: boolean;
-  children?: React.ReactNode;
-  renderSkeleton?: (feild: any) => React.ReactNode;
+  control: Control<any>
+  fieldType: FormFieldType
+  name: string
+  label?: string
+  placeholder?: string
+  iconSrc?: string
+  iconAlt?: string
+  disabled?: boolean
+  dateFormat?: string
+  showTimeSelects?: boolean
+  children?: React.ReactNode
+  renderSkeleton?: (feild: any) => React.ReactNode
 }
 
 const RenderField = ({
   field,
   props,
 }: {
-  field: any;
-  props: CustomFormFeildProps;
+  field: any
+  props: CustomFormFeildProps
 }) => {
   const {
     placeholder,
@@ -53,7 +53,7 @@ const RenderField = ({
     showTimeSelects,
     dateFormat,
     renderSkeleton,
-  } = props;
+  } = props
   switch (fieldType) {
     case FormFieldType.INPUT:
       return (
@@ -63,7 +63,7 @@ const RenderField = ({
               src={iconSrc}
               height={24}
               width={24}
-              alt={iconAlt || "icon"}
+              alt={iconAlt || 'icon'}
               className="ml-2"
             />
           )}
@@ -75,7 +75,7 @@ const RenderField = ({
             />
           </FormControl>
         </div>
-      );
+      )
     case FormFieldType.PHONE_INPUT:
       return (
         <FormControl>
@@ -89,7 +89,7 @@ const RenderField = ({
             className="input-phone"
           />
         </FormControl>
-      );
+      )
     case FormFieldType.DATE_PICKER:
       return (
         <div className="flex rounded-md border border-dark-500 bg-dark-400">
@@ -99,21 +99,21 @@ const RenderField = ({
             width={24}
             alt="calendar"
             className="ml-2"
-          ></Image>
+            />
           <FormControl>
             <DatePicker
               selected={field.value}
               onChange={(date) => field.onChange(date)}
-              dateFormat={dateFormat ?? "MM/dd/yyyy"}
+              dateFormat={dateFormat ?? 'MM/dd/yyyy'}
               showTimeSelect={showTimeSelects ?? false}
               timeInputLabel="Time:"
               wrapperClassName="date-picker"
             />
           </FormControl>
         </div>
-      );
+      )
     case FormFieldType.SKELETON:
-      return renderSkeleton ? renderSkeleton(field) : null;
+      return renderSkeleton ? renderSkeleton(field) : null
     case FormFieldType.SELECT:
       return (
         <FormControl>
@@ -128,11 +128,10 @@ const RenderField = ({
             </SelectContent>
           </Select>
         </FormControl>
-      );
-      case FormFieldType.TEXTAREA:
+      )
+    case FormFieldType.TEXTAREA:
       return (
         <FormControl>
-          
           <Textarea
             placeholder={props.placeholder}
             {...field}
@@ -140,23 +139,29 @@ const RenderField = ({
             disabled={props.disabled}
           />
         </FormControl>
-      );
-      case FormFieldType.CHECKBOX:
-        return(
-          <FormControl>
-            <div className="flex items-center gap-4">
-            <Checkbox id={props.name} checked={field.value} onCheckedChange={field.onChange} />
-            <label className="checkbox-label" htmlFor={props.name}>{props.label}</label>
-            </div>
-          </FormControl>
-        )
+      )
+    case FormFieldType.CHECKBOX:
+      return (
+        <FormControl>
+          <div className="flex items-center gap-4">
+            <Checkbox
+              id={props.name}
+              checked={field.value}
+              onCheckedChange={field.onChange}
+            />
+            <label className="checkbox-label" htmlFor={props.name}>
+              {props.label}
+            </label>
+          </div>
+        </FormControl>
+      )
     default:
-      break;
+      break
   }
-};
+}
 
 const CustomFormFeild = (props: CustomFormFeildProps) => {
-  const { control, fieldType, name, label } = props;
+  const { control, fieldType, name, label } = props
   return (
     <div>
       <FormField
@@ -168,12 +173,12 @@ const CustomFormFeild = (props: CustomFormFeildProps) => {
               <FormLabel>{label}</FormLabel>
             )}
             <RenderField field={field} props={props} />
-            <FormMessage className="shad-error"></FormMessage>
+            <FormMessage className="shad-error"/>
           </FormItem>
         )}
       />
     </div>
-  );
-};
+  )
+}
 
-export default CustomFormFeild;
+export default CustomFormFeild

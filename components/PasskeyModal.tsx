@@ -1,5 +1,5 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client'
+import React, { useEffect, useState } from 'react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,62 +8,58 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog'
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-} from "@/components/ui/input-otp";
+} from '@/components/ui/input-otp'
 
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { decryptKey,encryptKey } from "@/lib/utils";
+import Image from 'next/image'
+import { usePathname, useRouter } from 'next/navigation'
+import { decryptKey, encryptKey } from '@/lib/utils'
 
 const PasskeyModal = () => {
-  const router = useRouter();
-  const path = usePathname();
-  const [open, setOpen] = useState(true);
-  const [passkey, setPasskey] = useState("");
-  const [error, setError] = useState("");
+  const router = useRouter()
+  const path = usePathname()
+  const [open, setOpen] = useState(true)
+  const [passkey, setPasskey] = useState('')
+  const [error, setError] = useState('')
 
-  const encryptedKey = typeof window !== "undefined"? window.localStorage.getItem("accessKey"): null;
-    console.log("Encrypted Key on Load:", encryptedKey);
-  
+  const encryptedKey =
+    typeof window !== 'undefined'
+      ? window.localStorage.getItem('accessKey')
+      : null
+
   useEffect(() => {
     // const accessKey =encryptedKey && decryptKey(encryptedKey);
     if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
-      setOpen(false);
-      router.push("/admin");
-
+      setOpen(false)
+      router.push('/admin')
     } else {
-      setOpen(true);
+      setOpen(true)
     }
-    
   }, [path, router, passkey])
-  
 
   const validatePasskey = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-    e.preventDefault();
-    console.log("Entered Passkey:", passkey);
-    console.log("Environment Passkey:", process.env.NEXT_PUBLIC_ADMIN_PASSKEY);
+    e.preventDefault()
 
     if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
-      const encryptedKey = encryptKey(passkey);
-      console.log("Setting Encrypted Key:", encryptedKey);
+      const encryptedKey = encryptKey(passkey)
 
-      localStorage.setItem("accesskey", encryptedKey);
-      setOpen(false);
+      localStorage.setItem('accesskey', encryptedKey)
+      setOpen(false)
     } else {
-      setError("Invalid Passkey, Please try again");
+      setError('Invalid Passkey, Please try again')
     }
-  };
+  }
 
   const closeModal = () => {
-    setOpen(false);
-    router.push("/");
-  };
+    setOpen(false)
+    router.push('/')
+  }
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent className="shad-alert-dialog">
@@ -114,7 +110,7 @@ const PasskeyModal = () => {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  );
-};
+  )
+}
 
-export default PasskeyModal;
+export default PasskeyModal

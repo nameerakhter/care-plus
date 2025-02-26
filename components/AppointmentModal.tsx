@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Dialog,
@@ -7,25 +7,31 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog'
 
-import React, { useState } from "react";
-import { Button } from "./ui/button";
-import AppointmentForm from "./forms/AppointmentForm";
-import { Appointment } from "@/types/appwrite.types";
+import React, { useState } from 'react'
+import { Button } from './ui/button'
+import AppointmentForm from './forms/AppointmentForm'
+import { Appointment } from '@/types/appwrite.types'
 
-const AppointmentModal = ({ type, patientId,userId, appointment }: { type: "schedule" | "cancel",
-    patientId: string,
-    userId: string,
-    appointment?: Appointment,
- }) => {
-    const [open, setOpen] = useState(false);
+const AppointmentModal = ({
+  type,
+  patientId,
+  userId,
+  appointment,
+}: {
+  type: 'schedule' | 'cancel'
+  patientId: string
+  userId: string
+  appointment?: Appointment
+}) => {
+  const [open, setOpen] = useState(false)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className={`capitalize ${type === "schedule" && "text-green-500"}`}
+          className={`capitalize ${type === 'schedule' && 'text-green-500'}`}
         >
           {type}
         </Button>
@@ -37,10 +43,16 @@ const AppointmentModal = ({ type, patientId,userId, appointment }: { type: "sche
             Please fill in the following details to {type} the appointment
           </DialogDescription>
         </DialogHeader>
-        <AppointmentForm type={type} patientId={patientId} userId={userId} appointment={appointment} setOpen={setOpen}/>
+        <AppointmentForm
+          type={type}
+          patientId={patientId}
+          userId={userId}
+          appointment={appointment}
+          setOpen={setOpen}
+        />
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
-export default AppointmentModal;
+export default AppointmentModal
